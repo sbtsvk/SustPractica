@@ -1,0 +1,45 @@
+use tienda_musica
+
+
+db.createCollection("artistas")
+
+
+db.createColletion("albumes")
+
+
+db.artistas.insertMany([
+{Nombre:"The Beatles",Genero:"Rock",Pais:"Reino Unido"},
+{Nombre:"Taylor Swift",Genero:"Pop",Pais:"Estados Unidos"},
+{Nombre:"Shakira",Genero:"Latino",Pais:"Colombia"}])
+
+db.albumes.insertMany([
+{Nombre:"Abbey Road",Artista:"The Beatles",Año:1969},
+{Nombre:"1989",Artista:"Taylor Swift",Año:2014},
+{Nombre:"El Dorado",Artista:"Shakira",Año:2017}])
+
+
+db.artistas.find({})
+db.artistas.find({Nombre:"Shakira"})
+db.artistas.find({Nombre:"The Beatles"})
+db.artistas.find({Nombre:"Taylor Swift"})
+
+db.albumes.find({Artista:"Shakira"})
+db.albumes.find({Artista:"The Beatles"})
+db.albumes.find({Artista:"Taylor Swift"})
+
+db.artistas.findOne({Genero:"Latino"})
+db.artistas.findOne({Genero:"Rock"})
+db.artistas.findOne({Genero:"Pop"})
+db.albumes.find({Año:{$gte:2000}})
+
+
+db.artistas.updateOne({Nombre:"Shakira"},{$set:{Pais:"España"}})
+db.albumes.updateOne({Nombre:"1989"},{$set:{Ventas:10000000}})
+
+
+db.artistas.deleteOne({Nombre:"The Beatles"})
+db.albumes.deleteMany({Año:{$lt:2000}})
+
+db.albumes.aggregate([
+{$match:{Artista:"Taylor Swift"}},
+{$count:"Albumes"}])
